@@ -32,7 +32,7 @@
 - 4 downsamples/upsamples (3, 32, 64, 128, 256, 512 channels)
 - Batch Normalization Layers
 - 2x2x2 Maxpool 
-- ReLU activation functions
+- ReLU activation functions (play with MISH Activation Function to see if it makes any difference)
 - 
 ## Custom Loss Function (Weighted by Mask)**
 **Method:** Arbitrarily iterate through different combinations of loss functions (L1, Huber, MSE) and penalization constants to see which produces the best results
