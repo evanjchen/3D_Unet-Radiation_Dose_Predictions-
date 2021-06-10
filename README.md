@@ -23,13 +23,20 @@
 - Solution: Subtract the cord mask from the PTV mask.  
 **Multiple PTV masks on the same slice:**. In the "View-Dose(Save Training) notebook, we can see an example of where a patient has 2 separate PTV volumes both indexed to the same CT scan. Rather than placing 2 contours for the same CT scan, the medical imaging software makes a duplicate CT scan so there is only 1 contour per scan.  We must concatenate all PTV masks that reference the same CT scan; otherwise, our loss function will not operate correctly. 
 - Solution: Find all referenced PTVs for an indexed CT scan and concatenate the masks to obtain the true mask for the CT scan
+- **Neck and Sacrum:** Remove the patients that have cancer in the neck and sacrum areas. Due to our small training data set, we wanted to 
 
 ## 3D-Unet Model for predicting Dose
 **Inputs:** CT Scan, PTV mask, spinal cord mask
 **Model Attributes:**.  
 - 3x3 kernel size (stride 2), 
-- 4 downsamples/upsamples (to 256 channels)
-
-
-
-**Custom Loss Function**
+- 4 downsamples/upsamples (3, 32, 64, 128, 256, 512 channels)
+- Batch Normalization Layers
+- 2x2x2 Maxpool 
+- ReLU activation functions
+- 
+## Custom Loss Function (Weighted by Mask)**
+**Method:** Arbitrarily iterate through different combinations of loss functions (L1, Huber, MSE) and penalization constants to see which produces the best results
+- **PTV Mask:** Heavily penalize the model for adding dose outside of the PTV mask
+- **Cord Mask:** Heavily penalize the model for adding dose to the spine
+- **Note:** Unfortunately, not all the patients had a cord mask (placed a 0 matrix for patient's with no cord mask); therefore, many of the model's predictions have dose in the spine mask because 
+- 
