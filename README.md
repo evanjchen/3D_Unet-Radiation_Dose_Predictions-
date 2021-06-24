@@ -40,3 +40,10 @@
 - **Cord Mask:** Heavily penalize the model for adding dose to the spine
 - **Note:** Unfortunately, not all the patients had a cord mask (placed a 0 matrix for patient's with no cord mask); therefore, many of the model's predictions have dose in the spine mask because 
 - 
+
+
+## Training**
+- **optimizer:** AdamW
+- **Learning Rate Scheduler:** One Cycle LR
+- 
+Because we are dealing with heavy sets of 3-D images and mask, mixed precision training is needed with Cuda.Amp
